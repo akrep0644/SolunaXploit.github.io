@@ -2,7 +2,8 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Viewer</title>
+  <title>uranium.exploit</title>
+
   <style>
     html, body {
       margin: 0;
@@ -18,14 +19,71 @@
       height: 100%;
       border: none;
     }
+
+    /* ALT BAR GEÇİCİ MASKE */
+    #bottom-mask {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 110px; /* wake up bar yüksekliği */
+      background: #000;
+      z-index: 9999;
+      transition: opacity 0.6s ease;
+    }
+
+    #bottom-mask.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* BOOT YAZISI */
+    #boot-text {
+      position: fixed;
+      bottom: 48px;
+      width: 100%;
+      text-align: center;
+      color: #00ff88;
+      font-family: monospace;
+      font-size: 14px;
+      letter-spacing: 1px;
+      z-index: 10000;
+      animation: blink 1.2s infinite;
+      transition: opacity 0.6s ease;
+    }
+
+    #boot-text.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 0.35; }
+      50% { opacity: 1; }
+    }
   </style>
 </head>
+
 <body>
 
-<iframe
-  src="https://krypton-hacks.preview.emergentagent.com/"
-  allowfullscreen
-></iframe>
+  <!-- ALT KISMI 2 SN GİZLEYEN MASKE -->
+  <div id="bottom-mask"></div>
+  <div id="boot-text">initializing backend modules...</div>
+
+  <!-- WEBVIEW GİBİ SITE -->
+  <iframe
+    src="https://krypton-hacks.preview.emergentagent.com/"
+    allowfullscreen
+  ></iframe>
+
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("bottom-mask").classList.add("hide");
+        document.getElementById("boot-text").classList.add("hide");
+      }, 2000); // 2 saniye
+    });
+  </script>
 
 </body>
 </html>
