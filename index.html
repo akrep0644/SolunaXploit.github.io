@@ -15,7 +15,30 @@
       font-family: monospace;
     }
 
-    /* LOADING EKRANI */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* KALICI ALT MASKE */
+    #perma-mask {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 110px;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,1) 60%,
+        rgba(0,0,0,0.85) 80%,
+        rgba(0,0,0,0) 100%
+      );
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    /* BAŞLANGIÇ LOADING */
     #loading {
       position: fixed;
       inset: 0;
@@ -24,9 +47,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
       letter-spacing: 1px;
-      z-index: 9999;
+      z-index: 10000;
       animation: blink 1.2s infinite;
     }
 
@@ -34,45 +57,26 @@
       0%,100% { opacity: 0.4; }
       50% { opacity: 1; }
     }
-
-    /* iframe SONRADAN GELİYOR */
-    #container {
-      width: 100%;
-      height: 100%;
-      display: none;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- BAŞTA SADECE BU VAR -->
-  <div id="loading">
-    initializing interface...
-  </div>
+  <!-- LOADING -->
+  <div id="loading">initializing interface...</div>
 
-  <!-- iframe BAŞTA YOK -->
-  <div id="container"></div>
+  <!-- WEBVIEW -->
+  <iframe id="view"></iframe>
+
+  <!-- ALT BAR KATİLİ -->
+  <div id="perma-mask"></div>
 
   <script>
     setTimeout(() => {
-      // loading’i kaldır
       document.getElementById("loading").remove();
-
-      // iframe’i SONRADAN oluştur
-      const iframe = document.createElement("iframe");
-      iframe.src = "https://krypton-hacks.preview.emergentagent.com/";
-      iframe.allowFullscreen = true;
-
-      document.getElementById("container").appendChild(iframe);
-      document.getElementById("container").style.display = "block";
-    }, 2000); // 2 saniye
+      document.getElementById("view").src =
+        "https://krypton-hacks.preview.emergentagent.com/";
+    }, 1500);
   </script>
 
 </body>
