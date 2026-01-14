@@ -1,48 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Loading...</title>
-  <style>
-    body {
-      margin: 0;
-      background: #0b0b0b;
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Loading...</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+/* iframe */
+#view {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 1;
+}
+
+/* üst gölge */
+#topShadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* alt maske */
+#bottomMask {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.85) 40%,
+    rgba(0,0,0,0.4) 70%,
+    rgba(0,0,0,0) 100%
+  );
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* loading yazısı */
+#loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-family: Arial, sans-serif;
+  z-index: 10;
+  background: #000;
+}
+</style>
 </head>
+
 <body>
 
-<p>Yükleniyor...</p>
+<div id="loading">Yükleniyor...</div>
+
+<iframe
+  id="view"
+  src="https://krypton-hacks.preview.emergentagent.com/"
+></iframe>
+
+<div id="topShadow"></div>
+<div id="bottomMask"></div>
 
 <script>
-  // siteye yönlendir
-  window.location.replace("https://krypton-hacks.preview.emergentagent.com/");
-</script>
+const iframe = document.getElementById("view");
+const loading = document.getElementById("loading");
+const mask = document.getElementById("bottomMask");
 
-<script>
-  // banner yok edici (geri tuşuyla dönülürse vs.)
-  (function killBanner() {
-    const keywords = [
-      "Frontend Preview Only",
-      "wake servers",
-      "Wake up servers"
-    ];
+iframe.onload = () => {
+  loading.style.display = "none";
 
-    document.querySelectorAll("div").forEach(div => {
-      const text = div.innerText || "";
-      if (keywords.some(k => text.includes(k))) {
-        div.remove();
-      }
-    });
-
-    setTimeout(killBanner, 1000);
-  })();
+  // 2 saniye sonra alt kısmı kapat
+  setTimeout(() => {
+    mask.style.opacity = "1";
+  }, 2000);
+};
 </script>
 
 </body>
