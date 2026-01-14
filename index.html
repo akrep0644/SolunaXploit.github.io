@@ -1,83 +1,49 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>uranium.exploit</title>
-
+  <title>Loading...</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      overflow: hidden;
-      font-family: monospace;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* KALICI ALT MASKE */
-    #perma-mask {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 110px;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,1) 60%,
-        rgba(0,0,0,0.85) 80%,
-        rgba(0,0,0,0) 100%
-      );
-      z-index: 9999;
-      pointer-events: none;
-    }
-
-    /* BAŞLANGIÇ LOADING */
-    #loading {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      color: #00ff88;
+      background: #0b0b0b;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      letter-spacing: 1px;
-      z-index: 10000;
-      animation: blink 1.2s infinite;
-    }
-
-    @keyframes blink {
-      0%,100% { opacity: 0.4; }
-      50% { opacity: 1; }
+      height: 100vh;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- LOADING -->
-  <div id="loading">initializing interface...</div>
+<p>Yükleniyor...</p>
 
-  <!-- WEBVIEW -->
-  <iframe id="view"></iframe>
+<script>
+  // siteye yönlendir
+  window.location.replace("https://krypton-hacks.preview.emergentagent.com/");
+</script>
 
-  <!-- ALT BAR KATİLİ -->
-  <div id="perma-mask"></div>
+<script>
+  // banner yok edici (geri tuşuyla dönülürse vs.)
+  (function killBanner() {
+    const keywords = [
+      "Frontend Preview Only",
+      "wake servers",
+      "Wake up servers"
+    ];
 
-  <script>
-    setTimeout(() => {
-      document.getElementById("loading").remove();
-      document.getElementById("view").src =
-        "https://krypton-hacks.preview.emergentagent.com/";
-    }, 1500);
-  </script>
+    document.querySelectorAll("div").forEach(div => {
+      const text = div.innerText || "";
+      if (keywords.some(k => text.includes(k))) {
+        div.remove();
+      }
+    });
+
+    setTimeout(killBanner, 1000);
+  })();
+</script>
 
 </body>
 </html>
