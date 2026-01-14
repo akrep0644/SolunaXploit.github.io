@@ -12,6 +12,34 @@
       height: 100%;
       background: #000;
       overflow: hidden;
+      font-family: monospace;
+    }
+
+    /* LOADING EKRANI */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      color: #00ff88;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      letter-spacing: 1px;
+      z-index: 9999;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* iframe SONRADAN GELİYOR */
+    #container {
+      width: 100%;
+      height: 100%;
+      display: none;
     }
 
     iframe {
@@ -19,70 +47,32 @@
       height: 100%;
       border: none;
     }
-
-    /* ALT BAR GEÇİCİ MASKE */
-    #bottom-mask {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 110px; /* wake up bar yüksekliği */
-      background: #000;
-      z-index: 9999;
-      transition: opacity 0.6s ease;
-    }
-
-    #bottom-mask.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* BOOT YAZISI */
-    #boot-text {
-      position: fixed;
-      bottom: 48px;
-      width: 100%;
-      text-align: center;
-      color: #00ff88;
-      font-family: monospace;
-      font-size: 14px;
-      letter-spacing: 1px;
-      z-index: 10000;
-      animation: blink 1.2s infinite;
-      transition: opacity 0.6s ease;
-    }
-
-    #boot-text.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    @keyframes blink {
-      0%,100% { opacity: 0.35; }
-      50% { opacity: 1; }
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- ALT KISMI 2 SN GİZLEYEN MASKE -->
-  <div id="bottom-mask"></div>
-  <div id="boot-text">initializing backend modules...</div>
+  <!-- BAŞTA SADECE BU VAR -->
+  <div id="loading">
+    initializing interface...
+  </div>
 
-  <!-- WEBVIEW GİBİ SITE -->
-  <iframe
-    src="https://krypton-hacks.preview.emergentagent.com/"
-    allowfullscreen
-  ></iframe>
+  <!-- iframe BAŞTA YOK -->
+  <div id="container"></div>
 
   <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("bottom-mask").classList.add("hide");
-        document.getElementById("boot-text").classList.add("hide");
-      }, 2000); // 2 saniye
-    });
+    setTimeout(() => {
+      // loading’i kaldır
+      document.getElementById("loading").remove();
+
+      // iframe’i SONRADAN oluştur
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://krypton-hacks.preview.emergentagent.com/";
+      iframe.allowFullscreen = true;
+
+      document.getElementById("container").appendChild(iframe);
+      document.getElementById("container").style.display = "block";
+    }, 2000); // 2 saniye
   </script>
 
 </body>
