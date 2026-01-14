@@ -22,52 +22,28 @@ iframe {
   border: none;
 }
 
-/* ALT MASKE */
-#bottom-mask {
+/* TAM EKRAN SİYAH KAPATMA */
+#hard-cover {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 140px;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.95),
-    rgba(0,0,0,0.85),
-    rgba(0,0,0,0.6),
-    rgba(0,0,0,0)
-  );
-  backdrop-filter: blur(10px);
-  z-index: 9999;
-  pointer-events: none;
-  transition: opacity 1s ease;
-}
-
-/* ÜST GÖLGE (ESTETİK) */
-#top-shadow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.6),
-    rgba(0,0,0,0)
-  );
-  z-index: 9999;
+  inset: 0;
+  background: #000;
+  z-index: 999999;
+  opacity: 1;
+  transition: opacity 1.2s ease;
   pointer-events: none;
 }
 
-/* LOADING YAZISI */
-#loading {
+/* LOADING TEXT */
+#boot-text {
   position: fixed;
-  bottom: 60px;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   color: #00ff88;
   font-family: monospace;
   font-size: 14px;
-  z-index: 10000;
+  letter-spacing: 1px;
+  z-index: 1000000;
   opacity: 1;
   transition: opacity 0.8s ease;
 }
@@ -81,14 +57,13 @@ iframe {
   allowfullscreen>
 </iframe>
 
-<div id="top-shadow"></div>
-<div id="bottom-mask"></div>
-<div id="loading">initializing backend modules...</div>
+<div id="hard-cover"></div>
+<div id="boot-text">$ initializing uranium executor...</div>
 
 <script>
 setTimeout(() => {
-  document.getElementById("bottom-mask").style.opacity = "0";
-  document.getElementById("loading").style.opacity = "0";
+  document.getElementById("hard-cover").style.opacity = "0";
+  document.getElementById("boot-text").style.opacity = "0";
 }, 2000);
 </script>
 
